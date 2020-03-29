@@ -51,8 +51,8 @@ class Debris {
     image(this.coronaImage, this.x, this.y, this.r * 2, this.r * 2);
   }
    
-  hasHitShip(ship) {
-    if (dist(this.x, this.y, ship.x, ship.y) < this.r + ship.r) {
+  hasHitPlayer(Player) {
+    if (dist(this.x, this.y, Player.x, Player.y) < this.r + Player.r) {
         return true;
     }
     return false

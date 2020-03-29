@@ -1,5 +1,5 @@
-let leftShip;
-let rightShip; 
+let leftPlayer;
+let rightPlayer; 
 let allDebris = [];
  
 const NUM_DEBRIS = 30;
@@ -7,18 +7,18 @@ const NUM_DEBRIS = 30;
 let leftScore; 
 let rightScore;
 
-let spaceshipImage;
+let playerImage;
 let coronaImage;
 
 let timer;
 function setup() {
   createCanvas(400, 400);
 
-  spaceshipImage = loadImage('spaceship.png');
+  playerImage = loadImage('player.png');
   coronaImage = loadImage('coronavirus.png');
 
-  leftShip = new Ship(width * 0.33, spaceshipImage);
-  rightShip = new Ship(width * 0.66, spaceshipImage);
+  leftPlayer = new Player(width * 0.33, playerImage);
+  rightPlayer = new Player(width * 0.66, playerImage);
 
     // create debris
     for (let i = 0; i < NUM_DEBRIS; i++) {
@@ -35,28 +35,28 @@ function setup() {
 function draw() {
   background(0);
    
-  leftShip.update();
-  rightShip.update();
+  leftPlayer.update();
+  rightPlayer.update();
    
-  leftShip.display();
-  rightShip.display();
+  leftPlayer.display();
+  rightPlayer.display();
 
   updateDebrisAndCheckCollisions();
 
-  leftScore.display(leftShip.score);
-  rightScore.display(rightShip.score);
+  leftScore.display(leftPlayer.score);
+  rightScore.display(rightPlayer.score);
 
   timer.display();
   
   if (timer.y <= 0-height) {
       noLoop();
-      if (leftShip.score > rightShip.score) {
+      if (leftPlayer.score > rightPlayer.score) {
           textSize(32);
       text('Winner: Player 1', height/2,width/2) }
-      else if (leftShip.score == rightShip.score){
+      else if (leftPlayer.score == rightPlayer.score){
       textSize(32);
       text("It's a Tie", height/2,width/2) }
-      else if (leftShip.score < rightShip.score){
+      else if (leftPlayer.score < rightPlayer.score){
       textSize(32);
       text('Winner: Player 2', height/2+20,width/2) }
   }
@@ -70,44 +70,44 @@ function updateDebrisAndCheckCollisions() {
       allDebris[i].update();
         allDebris[i].display();
       
-      if (allDebris[i].hasHitShip(leftShip)) {
-          leftShip.respawn();
-      } else if (allDebris[i].hasHitShip(rightShip)) {
-          rightShip.respawn();
+      if (allDebris[i].hasHitPlayer(leftPlayer)) {
+          leftPlayer.respawn();
+      } else if (allDebris[i].hasHitPlayer(rightPlayer)) {
+          rightPlayer.respawn();
       }
     }
   } 
 
 function keyPressed() {
   if (keyCode == UP_ARROW) {
-    rightShip.isUp = true;
-    rightShip.isDown = false;
+    rightPlayer.isUp = true;
+    rightPlayer.isDown = false;
   } else if (keyCode == DOWN_ARROW) {
-    rightShip.isDown = true;
-    rightShip.isUp = false;
+    rightPlayer.isDown = true;
+    rightPlayer.isUp = false;
   }
    
    
   if (keyCode == 87) {
     // keycode 'w'
-    leftShip.isUp = true;
-    leftShip.isDown = false;
+    leftPlayer.isUp = true;
+    leftPlayer.isDown = false;
   } else if (keyCode == 83) {
     // keycode 's'
-    leftShip.isDown = true;
-    leftShip.isUp = false;
+    leftPlayer.isDown = true;
+    leftPlayer.isUp = false;
   }
 }
 function keyReleased() {
   if (keyCode == UP_ARROW) {
-    rightShip.isUp = false;
+    rightPlayer.isUp = false;
   } else if (keyCode == DOWN_ARROW) {
-    rightShip.isDown = false;
+    rightPlayer.isDown = false;
   }
    
   if (keyCode == 87) {
-    leftShip.isUp = false;
+    leftPlayer.isUp = false;
   } else if (keyCode == 83) {
-    leftShip.isDown = false;
+    leftPlayer.isDown = false;
   }
 }
